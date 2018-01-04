@@ -1,0 +1,94 @@
+{
+  "name": "fabric8-runtime-console",
+  "version": "0.0.0-development",
+  "license": "MIT",
+  "description": "A collection of Angular components and other useful things to be shared.",
+  "main": "bundles/fabric8-runtime-console.umd.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "build": "npm run remove-dist && npm run build:library",
+    "build:library": "gulp build-library",
+    "bundle-rollup": "rollup -c",
+    "bundle": "webpack --config config/webpack.prod.js --progress --profile --bail",
+    "clean": "npm cache clean && npm run rimraf -- node_modules doc coverage dist distwatch bundles",
+    "cleanup": "rimraf dist/package.json dist/bundles dist/src dist/index.d.ts dist/index.metadata.json dist/index.js dist/index.js.map dist/LICENSE dist/README.md",
+    "e2e": "protractor",
+    "lint": "tslint --fix \"src/**/*.ts\"",
+    "minify": "uglifyjs dist/bundles/ngx-widgets.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ngx-widgets.min.js",
+    "ngc": "./node_modules/.bin/ngc",
+    "pree2e": "webdriver-manager update",
+    "reinstall": "npm run clean && npm install",
+    "remove-dist": "rimraf dist dist-watch",
+    "rimraf": "rimraf",
+    "semantic-release": "semantic-release pre && npm run build && cp -r .git dist && npm publish dist/ && semantic-release post",
+    "start": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/",
+    "sw": "sw-precache --root=dist --config=sw-precache-config.js",
+    "test": "karma start",
+    "test-old": "ng test",
+    "test:xvfb": "./karma-xvfb.sh",
+    "transpile": "gulp transpile",
+    "transpile-sass": "gulp compile-sass",
+    "watch:library": "gulp watch"
+  },
+  "contributors": [
+    {
+      "name": "James Strachan",
+      "email": "jstracha@redhat.com"
+    },
+    {
+      "name": "Joshua Wilson",
+      "email": "josh@redhat.com"
+    },
+    {
+      "name": "Dana Gutride",
+      "email": "dgutride@redhat.com"
+    }
+  ],
+  "keywords": [
+    "angular",
+    "angular2",
+    "angular 2",
+    "angular4",
+    "angular 4",
+    "ng",
+    "ng2",
+    "ng4",
+    "pipelines",
+    "cd",
+    "ci"
+  ],
+  "homepage": "https://github.com/fabric8-ui/fabric8-runtime-console",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabric8-ui/fabric8-runtime-console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fabric8-ui/fabric8-runtime-console/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.1",
+    "npm": ">= 3"
+  },
+  "dependencies": {
+    "ngx-widgets": "0.10.4",
+    "rxjs": "5.0.1"
+  },
+  "devDependencies": {
+    "webpack-validator": "2.3.0",
+    "org.codehaus.groovy:groovy-json": "1.0.1",
+    "serve-static":"1.7.1"
+  },
+  "release": {
+    "branch": "master",
+    "debug": false,
+    "verifyConditions": {
+      "path": "./node_modules/@krux/condition-jenkins"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
